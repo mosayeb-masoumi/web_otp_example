@@ -65,5 +65,12 @@ class _HomeScreenState extends State<HomeScreen> {
     @baran-tst.bki.ir #123456
 
 
+
+    in index.html
+    when sms received a bottomSheet will be appear contains 2 buttons ALLOW and DENY ,
+    if user click on DENY button, we used setTimeout , after 10 seconds the listenForOTP() function will be triggered again
+
+    then no matter if user click on ALLOW or DENY , bottomSheet will be appear everytime
+
  **/
 
