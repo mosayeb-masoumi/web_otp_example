@@ -14,7 +14,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
+  <base href="https://mosayeb-masoumi.github.io/otp_web/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -55,5 +55,47 @@
       });
     });
   </script>
+
+
+
+
+<script>
+ if ("OTPCredential" in window) {
+    window.addEventListener("DOMContentLoaded", (e) => {
+      const ac = new AbortController();
+
+	  const timeoutDuration = 10000;//10s
+
+	  function onTimeout(){
+		  listenForOTP();
+	  }
+
+      function listenForOTP() {
+        let otpPromise = navigator.credentials
+          .get({
+            otp: { transport: ["sms"] },
+            signal: ac.signal,
+          });
+
+		  let timeOutId = setTimeout(onTimeout,timeoutDuration);
+
+          otpPromise.then((otp) => {
+            window.dispatchEvent(new CustomEvent('receiveOTP', { detail: otp.code }));
+            listenForOTP();
+			clearTimeout(timeOutId);
+
+          })
+          .catch((err) => {
+			  clearTimeout(timeOutId);
+          });
+      }
+
+      listenForOTP();
+
+    });
+  }
+</script>
+
+
 </body>
 </html>
