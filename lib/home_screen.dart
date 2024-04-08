@@ -72,5 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     then no matter if user click on ALLOW or DENY , bottomSheet will be appear everytime
 
+
+    IMPORTANT: the Web OTP API, can only be used on secure contexts, meaning that your website must be served over HTTPS.
+
  **/
 
