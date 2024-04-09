@@ -60,20 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
     format of sms for android devices should be like this :
 
-    android
+    android and ios
     -----------
     Your OTP is: 123456.
     // space between //
     @baran-tst.bki.ir #123456
 
 
-    ios
-    -----------
-    code: 123456
+    IOS WEB
+    NOTE: in IOS we can not handle webOtpApi ,("for example same as android device chrome, that shows bottomSheet and then we could press allow or deny")
+    for ios in index.html we added this line" const input = document.querySelector('input[autocomplete="one-time-code"]'); and in textField we add this property "textFiled" autofillHints:[AutofillHints.oneTimeCode],"""
+    in ios the received code just show as suggestion above keyboard.
 
-    @yourwebsite.com #123456
 
-
+    ANDROID WEB
     in index.html
     when sms received a bottomSheet will be appear contains 2 buttons ALLOW and DENY ,
     if user click on DENY button, we used setTimeout , after 10 seconds the listenForOTP() function will be triggered again
@@ -82,6 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
     IMPORTANT: the Web OTP API, can only be used on secure contexts, meaning that your website must be served over HTTPS.
+
+    IMPORTANT: if we use textField , to suggestion in ios we need to add this property to textFiled" autofillHints:[AutofillHints.oneTimeCode],"
 
  **/
 

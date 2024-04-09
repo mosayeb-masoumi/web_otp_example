@@ -58,10 +58,10 @@
 
 
 
-
-<script>
+  <script>
  if ("OTPCredential" in window) {
     window.addEventListener("DOMContentLoaded", (e) => {
+      const input = document.querySelector('input[autocomplete="one-time-code"]');
       const ac = new AbortController();
 
 	  const timeoutDuration = 10000;//10s
