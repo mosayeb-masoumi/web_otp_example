@@ -60,10 +60,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
     format of sms for android devices should be like this :
 
+    android
+    -----------
     Your OTP is: 123456.
     // space between //
     @baran-tst.bki.ir #123456
 
+
+    ios
+    -----------
+    code: 123456
+
+    @yourwebsite.com #123456
 
 
     in index.html
