@@ -1,5 +1,8 @@
 
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:universal_html/html.dart' as html;
 
 
@@ -21,16 +24,33 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _webOtpListener(){
-    String webOtp ="" ;
-    html.window.addEventListener('receiveOTP', (html.Event event) {
-      setState(() {
-          webOtp = (event as html.CustomEvent).detail.toString();
-          setState(() {
-            otpCredentialReceived = webOtp;
-          });
+    if(kIsWeb) {
+      html.window.postMessage({'type': 'triggerOTP'}, '*');
+      String webOtp = "";
+      html.window.addEventListener('receiveOTP', (html.Event event) {
+        setState(() {
+          try {
+            webOtp = (event as html.CustomEvent).detail.toString();
+            setState(() {
+              otpCredentialReceived = webOtp;
+            });
+          } catch (e) {}
+        });
       });
-    });
+    }
   }
+
+  // void _webOtpListener(){
+  //   String webOtp ="" ;
+  //   html.window.addEventListener('receiveOTP', (html.Event event) {
+  //     setState(() {
+  //         webOtp = (event as html.CustomEvent).detail.toString();
+  //         setState(() {
+  //           otpCredentialReceived = webOtp;
+  //         });
+  //     });
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

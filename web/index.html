@@ -58,42 +58,74 @@
 
 
 
+<!--  <script>-->
+<!-- if ("OTPCredential" in window) {-->
+<!--    window.addEventListener("DOMContentLoaded", (e) => {-->
+<!--      const input = document.querySelector('input[autocomplete="one-time-code"]');-->
+<!--      const ac = new AbortController();-->
+
+<!--	  const timeoutDuration = 10000;//10s-->
+
+<!--	  function onTimeout(){-->
+<!--		  listenForOTP();-->
+<!--	  }-->
+
+<!--      function listenForOTP() {-->
+<!--        let otpPromise = navigator.credentials-->
+<!--          .get({-->
+<!--            otp: { transport: ["sms"] },-->
+<!--            signal: ac.signal,-->
+<!--          });-->
+
+<!--		  let timeOutId = setTimeout(onTimeout,timeoutDuration);-->
+
+<!--          otpPromise.then((otp) => {-->
+<!--            window.dispatchEvent(new CustomEvent('receiveOTP', { detail: otp.code }));-->
+<!--            listenForOTP();-->
+<!--			clearTimeout(timeOutId);-->
+
+<!--          })-->
+<!--          .catch((err) => {-->
+<!--			  clearTimeout(timeOutId);-->
+<!--          });-->
+<!--      }-->
+
+<!--      listenForOTP();-->
+
+<!--    });-->
+<!--  }-->
+<!--</script>-->
+
   <script>
+ function listenForOTP() {
  if ("OTPCredential" in window) {
-    window.addEventListener("DOMContentLoaded", (e) => {
+
       const input = document.querySelector('input[autocomplete="one-time-code"]');
       const ac = new AbortController();
 
-	  const timeoutDuration = 10000;//10s
 
-	  function onTimeout(){
-		  listenForOTP();
-	  }
-
-      function listenForOTP() {
-        let otpPromise = navigator.credentials
+      navigator.credentials
           .get({
             otp: { transport: ["sms"] },
             signal: ac.signal,
-          });
-
-		  let timeOutId = setTimeout(onTimeout,timeoutDuration);
-
-          otpPromise.then((otp) => {
+          })
+		  .then((otp) => {
             window.dispatchEvent(new CustomEvent('receiveOTP', { detail: otp.code }));
-            listenForOTP();
-			clearTimeout(timeOutId);
-
+			clearTimeout();
           })
           .catch((err) => {
-			  clearTimeout(timeOutId);
+			  clearTimeout();
           });
-      }
 
-      listenForOTP();
-
-    });
   }
+ }
+
+    window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'triggerOTP') {
+      listenForOTP();
+    }
+  });
+
 </script>
 
 
